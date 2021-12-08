@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import alert from "./alerts";
+import {followingPostsReducer} from "./postReducer";
 import {
   userDetailsReducer,
   userLoginReducer,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
   follow: followReducer,
+  followingPosts: followingPostsReducer
 });
 
 export default rootReducer;
