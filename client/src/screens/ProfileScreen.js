@@ -38,23 +38,25 @@ const ProfileScreen = () => {
         "...LOADING"
       ) : (
         <div className=" offset-md-2 d-flex flex-column">
-          <>
+          <div className="d-flex flex-column">
+          <div className = "row">
+          <div className = "col-md-8 offset-md-2">
             <div className="row">
-              <div className="col-md-5 col-sm-4 text-center mt-3">
+            <div className="col-4 text-center mt-3">
                 <img
                   src={user?.profileImage}
+                  className = "img-fluid"
                   style={{
                     width: "10rem",
-                    height: "10rem",
                     borderRadius: "50%",
                     objectFit: "cover",
                   }}
                   alt=""
                 />
               </div>
-              <div className="col-md-7 col-sm-8 mt-3 d-flex flex-column">
+              <div className="col-8 col-sm-8 mt-3 d-flex flex-column">
                 <div className="d-flex align-items-center">
-                  <h4 className="d-inline mr-md-3">{user?.username}</h4>
+                <h4 className="d-inline mx-2">{user.username}</h4>
                   {followLoading && "...Loading"}
                   {!isFollowing ? (
                     <button
@@ -80,26 +82,28 @@ const ProfileScreen = () => {
                     <i className="fas fa-cog"></i>
                   </p>
                 </div>
-                <div className="my-3">
-                  <p className="d-inline mr-md-3 mr-2 ">
+                <div className="my-3 d-flex">
+                <p className="d-inline mx-2 d-flex flex-column text-center">
                     <strong>{user?.posts?.length}</strong> posts
                   </p>
-                  <p className="d-inline mx-md-3 mx-2">
+                  <p className="d-inline mx-2 d-flex flex-column text-center">
                     <strong>{user?.followers?.length}</strong> followers
                   </p>
-                  <p className="d-inline">
+                  <p className="d-inline mx-2 d-flex flex-column text-center">
                     <strong>{user?.following?.length}</strong> following
                   </p>
                 </div>
                 <div>
-                  <p>
+                <p className = "mx-3">
                     <strong>{user?.fullname}</strong>
                     <p>{user?.bio}</p>
                   </p>
                 </div>
               </div>
             </div>
-          </>
+            </div>
+          </div>
+          </div>
           <hr className="" />
           POSTS
         </div>

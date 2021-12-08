@@ -36,72 +36,64 @@ const getAllPostsByFollowing = expressAsyncHandler(async (req, res) => {
   const following = user.following;
   const filteredPosts = [];
   following.forEach((following) =>
-    posts.map((post) => post.user._id.toString() === following.toString() && filteredPosts.push(post))
+    posts.map(
+      (post) =>
+        post.user._id.toString() === following.toString() &&
+        filteredPosts.push(post)
+    )
   );
-  res.json(filteredPosts)
+  res.json(filteredPosts);
 });
 
-// //Like a post
+//Like a post
 
-// router.patch("/:id/like", auth, async (req, res) => {
-//   try {
-//     const post = await Post.findById(req.params.id);
+const likePost = expressAsyncHandler(async (req, res) => {
+  const post = await Post.findById(req.params.id);
+  if (!post) {
+    res.status(404);
+    throw new Error("No post found");
+  }
+  if (
+    post.likes.filter((like) => like.user.toString() === req.user.id).length > 0
+  ) {
+    const removeIndex = post.likes
+      .map((like) => like.user.toString())
+      .indexOf(req.user.id);
 
-//     // Check if the post has already been liked
-//     if (
-//       post.likes.filter((like) => like.user.toString() === req.user.id).length >
-//       0
-//     ) {
-//       const removeIndex = post.likes
-//         .map((like) => like.user.toString())
-//         .indexOf(req.user.id);
+    post.likes.splice(removeIndex, 1);
+    await post.save();
+    res.json(post.likes);
+  } else {
+    post.likes.unshift({ user: req.user.id });
+    await post.save();
+    res.json(post.likes);
+  }
+});
+// comment on a post
 
-//       post.likes.splice(removeIndex, 1);
-//       await post.save();
-//       res.json(post.likes);
-//     } else {
-//       post.likes.unshift({ user: req.user.id });
-//       await post.save();
-//       res.json(post.likes);
-//     }
-//   } catch (err) {
-//     console.error(err.message);
-//     res.status(500).send("Server Error");
-//   }
-// });
-// // comment on a post
 
-// const validateComment = [
-//   check("text", "Comment is required").trim().not().isEmpty(),
-// ];
-
-// router.post("/comment/:id", [validateComment, auth], async (req, res) => {
-//   const { id } = req.params;
-//   const errors = validationResult(req);
-//   if (!errors.isEmpty()) {
-//     return res.status(400).json({ errors: errors.array() });
-//   }
-//   const { text } = req.body;
-//   try {
-//     const post = await Post.findById(id);
-//     const user = await User.findById(req.user.id).select("-password");
-//     if (!post) {
-//       res.status(400).json({ message: "No post found" });
-//     }
-//     const comment = {
-//       username: user.username,
-//       profileImage: user.profileImage,
-//       text,
-//       userId: user._id,
-//     };
-//     post.comments.unshift(comment);
-//     await post.save();
-//     res.json(post.comments);
-//     console.log(post.comments);
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// });
+const comment = expressAsyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  const { text } = req.body;
+    const post = await Post.findById(id);
+    const user = await User.findById(req.user.id).select("-password");
+    if (!post) {
+      res.status(400)
+      throw new Error("No post found")
+    }
+    const comment = {
+      username: user.username,
+      profileImage: user.profileImage,
+      text,
+    };
+    post.comments.unshift(comment);
+    await post.save();
+    res.json(post.comments);
+});
 
 // //Like a comment
 
@@ -187,4 +179,4 @@ const getAllPostsByFollowing = expressAsyncHandler(async (req, res) => {
 //   }
 // });
 
-module.exports = { createPost, getAllPosts, getAllPostsByFollowing };
+module.exports = { createPost, getAllPosts, getAllPostsByFollowing, likePost, comment };

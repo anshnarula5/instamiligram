@@ -1,6 +1,11 @@
 import { combineReducers } from "redux";
 import alert from "./alerts";
-import {followingPostsReducer} from "./postReducer";
+import {
+  allPostsReducer,
+  commentPostReducer,
+  followingPostsReducer,
+  likePostReducer,
+} from "./postReducer";
 import {
   userDetailsReducer,
   userLoginReducer,
@@ -14,7 +19,10 @@ const rootReducer = combineReducers({
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
   follow: followReducer,
-  followingPosts: followingPostsReducer
+  followingPosts: followingPostsReducer,
+  likePost: likePostReducer,
+  commentPost: commentPostReducer,
+  allPosts : allPostsReducer
 });
 
 export default rootReducer;

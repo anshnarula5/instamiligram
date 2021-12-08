@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 
 // import { comment, deletePost, likeComment, likePost, deleteComment } from "../../../redux/actions/post";
+
 import { Link } from "react-router-dom";
+import {commentPost, likePost} from "../redux/actions/postActions";
 
 const Post = ({post}) => {
   const [showText, setShowText] = useState(false);
@@ -12,8 +14,7 @@ const Post = ({post}) => {
   const {userInfo : user, loading, error} = useSelector((state) => state.userLogin);
   const dispatch = useDispatch();
   const handleLike = () => {
-    // dispatch(likePost(post._id));
-    console.log("sadsdsd")
+    dispatch(likePost(post._id));
   };
   const handleDelete = () => {
     // dispatch(deletePost(post._id));
@@ -24,15 +25,12 @@ const Post = ({post}) => {
     setText(e.target.value);
   };
   const handleComment = () => {
-    // dispatch(comment(post._id, {text}))
-    console.log("sadsdsd")
-      
+    dispatch(commentPost(post._id, text))
     setText("");
   };
-  console.log(post)
   return (
     <>
-      <div className="card w-75 offset-2  my-2  ">
+      <div className="card offset-md-2  my-2  ">
         <div
           className="modal fade "
           id={`header${post._id}`}
