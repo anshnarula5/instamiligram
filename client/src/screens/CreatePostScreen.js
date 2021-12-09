@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import Loader from "../components/Loader";
 import { createPost } from "../redux/actions/postActions";
 
 const CreatePostScreen = () => {
@@ -51,7 +52,7 @@ const CreatePostScreen = () => {
   return (
     <div className="row ">
       {loading ? (
-        "...loading"
+        <Loader />
       ) : error ? (
         error
       ) : (
@@ -69,7 +70,7 @@ const CreatePostScreen = () => {
                           src={image}
                           className="img-fluid virtual"
                           alt="example "
-                          style = {{objectFit : "contain"}}
+                          style={{ objectFit: "contain" }}
                         />
                       ) : (
                         <img
@@ -100,11 +101,13 @@ const CreatePostScreen = () => {
               <div className="col-md-4 ">
                 <h5 className="card-title">
                   <img
+                    style={{ borderRadius: "50%", objectFit: "cover" }}
                     src={userInfo.profileImage}
+                    className = "mx-1"
+                    width="30rem"
+                    height="30rem"
                     alt=""
-                    width="25rem"
-                    style={{ borderRadius: "50%" }}
-                  />{" "}
+                  />
                   {userInfo.username}
                 </h5>
                 <ul className="list-group list-group-flush">

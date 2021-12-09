@@ -51,22 +51,19 @@ export const CREATE_POST_REQUEST=  "CREATE_POST_REQUEST"
 export const CREATE_POST_SUCCESS=  "CREATE_POST_SUCCESS"
 export const CREATE_POST_FAIL = "CREATE_POST_FAIL"
 
-export const ORDER_DETAILS_REQUEST = "ORDER_DETAILS_REQUEST"
-export const ORDER_DETAILS_SUCCESS = "ORDER_DETAILS_SUCCESS"
-export const ORDER_DETAILS_FAIL = "ORDER_DETAILS_FAIL"
 
-export const userDetailsReducer = (state = { user: {} }, action) => {
-    const { type, payload } = action;
-    switch (type) {
-      case USER_DETAILS_REQUEST:
-        return { ...state, loading: true };
-      case USER_DETAILS_SUCCESS:
-        return { loading: false, user: payload };
-      case USER_DETAILS_FAIL:
-        return { loading: false, error: payload };
-      case USER_DETAILS_RESET:
-        return { user: {} };
-      default:
-        return state;
-    }
-  };
+// export const userDetailsReducer = (state = { user: {} }, action) => {
+//     const { type, payload } = action;
+//     switch (type) {
+//       case USER_DETAILS_REQUEST:
+//         return { ...state, loading: true };
+//       case USER_DETAILS_SUCCESS:
+//         return { loading: false, user: payload };
+//       case USER_DETAILS_FAIL:
+//         return { loading: false, error: payload };
+//       case USER_DETAILS_RESET:
+//         return { user: {} };
+//       default:
+//         return state;
+//     }
+//   };

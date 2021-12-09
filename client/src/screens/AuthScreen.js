@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {setAlert} from "../redux/actions/alertAction";
 import {login, register} from "../redux/actions/usersAction";
 import {  useNavigate } from "react-router";
+import Loader from "../components/Loader";
 
 const AuthScreen = () => {
   const [isLogin, setisLogin] = useState(true);
@@ -16,18 +17,19 @@ const AuthScreen = () => {
   });
   const {email, password, username, fullname} = formData;
   const { loading, userInfo, error } = useSelector((state) => state.userLogin);
+  const { loading : registerLoading, userInfo : userRegister, error : registerError } = useSelector((state) => state.userLogin);
   
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isLogin) {
-      if (!email || !password) {
+      if (!email || !password || password.length < 6) {
         dispatch(setAlert("Please enter correct details", "danger"));
         return;
       }
       dispatch(login(formData))
     }
     else {
-      if (!email || !password || !username || !fullname) {
+      if (!email || !password || !username || !fullname || password.length < 6) {
         dispatch(setAlert("Please enter correct details", "danger"));
         return;
       }
@@ -47,7 +49,7 @@ const AuthScreen = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   return (
-    <>{loading && "...loading"}
+    <>{loading && <Loader />}
       <div className="row">
         <div className="col-md-4 mt-5 offset-md-4">
           <div className="card p-5">

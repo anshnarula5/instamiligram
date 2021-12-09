@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import {commentPost, likePost} from "../redux/actions/postActions";
+import Loader from "./Loader";
 
 
 const PostElement = ({post, profile, explore = true, myProfile = false}) => {
@@ -19,7 +20,7 @@ const PostElement = ({post, profile, explore = true, myProfile = false}) => {
     dispatch(commentPost(post._id, text));
     setText("");
   };
-  if (!post) return "...loading";
+  if (!post) return <Loader />;
   return (
     <>
       {post.user && <><div

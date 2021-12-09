@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Loader from "../components/Loader";
 import PostElement from "../components/PostElement";
 import { getAllPosts } from "../redux/actions/postActions";
 
@@ -11,7 +12,7 @@ const Explore = () => {
     dispatch(getAllPosts());
   }, [dispatch]);
   return loading ? (
-    "...Loading"
+    <Loader />
   ) : error ? (
     error
   ) : (

@@ -6,9 +6,12 @@ import Post from "../components/Post";
 import { getFollowingPosts } from "../redux/actions/postActions";
 import {
   follow,
+  getUserDetails,
   listNonFollowingUsers,
   logout,
 } from "../redux/actions/usersAction";
+import Loader from "../components/Loader";
+import Profiles from "./Profiles";
 // import Post from "./Post/Post";
 
 const HomeScreen = () => {
@@ -20,7 +23,8 @@ const HomeScreen = () => {
   const { success } = useSelector((state) => state.likePost);
   const { success: commentSuccess } = useSelector((state) => state.commentPost);
   const { success: followSuccess } = useSelector((state) => state.follow);
-  const { userInfo } = useSelector((state) => state.userLogin);
+  const { userInfo : user } = useSelector((state) => state.userLogin);
+  const { user : userInfo, loading  : userLoading, error : userError } = useSelector((state) => state.userDetails);
   const {
     users,
     loading: usersLoading,
@@ -29,24 +33,23 @@ const HomeScreen = () => {
  
 
   useEffect(() => {
-    if (userInfo && userInfo.username) {
       dispatch(getFollowingPosts());
-    }
-  }, [dispatch, success, commentSuccess, followSuccess, userInfo]);
-
-  useEffect(() => {
-    if (users && users.length === 0 && userInfo && userInfo.username) {
+    dispatch(getUserDetails(user._id))
       dispatch(listNonFollowingUsers());
-    }
-  }, [dispatch, followSuccess, userInfo]);
+  }, [dispatch, success, followSuccess]);
+
 
    
-  if (!userInfo || !userInfo.username) {
+  if (!user || !user.username) {
     return <Navigate to = "/auth"/>
   }
 
-  return loading ? (
-    "...Loading"
+  if (userInfo && userInfo?.following?.length === 0) {
+    return <Profiles />
+  }
+
+  return loading || userLoading ? (
+   <Loader />
   ) : error ? (
     { error }
   ) : (
@@ -81,7 +84,7 @@ const HomeScreen = () => {
               <small className="text-muted mb-2">Suggestions for you</small>
               <section>
                 {usersLoading
-                  ? "...Loading"
+                  ? <Loader />
                   : users.map((user) => (
                       <div
                         key={user._id}
@@ -95,37 +98,22 @@ const HomeScreen = () => {
                           alt=""
                         />
                         <div className="flex-grow-1 mx-2">
-                          <h6 className=" d-inline ">{user.username}</h6>
+                        <Link to = {`/profile/${user._id}`}>
+                        <h6 className=" d-inline ">{user.username}</h6>
                           <small className="text-muted d-block">
                             {user.fullname}
-                          </small>
+                          </small></Link>
                         </div>
-                        {user.followers.find(
-                          (follower) => follower === userInfo._id
-                        ) ? (
-                          <>
-                            <Link to={`/profile/${user._id}`}>
                               <p
                                 style={{ cursor: "pointer" }}
+                                className = "text-primary"
                                 data-bs-dismiss="modal"
-                                // onClick={() => {
-                                //   dispatch(follow(user._id));
-                                // }}
+                                onClick={() => {
+                                  dispatch(follow(user._id));
+                                }}
                               >
-                                View Profile
+                               Follow
                               </p>
-                            </Link>
-                          </>
-                        ) : (
-                          <Link to={`/profile/${user._id}`}>
-                            <p
-                              className="text-primary"
-                              style={{ cursor: "pointer" }}
-                            >
-                              View Profile
-                            </p>
-                          </Link>
-                        )}
                       </div>
                     ))}
               </section>

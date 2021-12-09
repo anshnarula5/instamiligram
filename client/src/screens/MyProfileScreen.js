@@ -3,37 +3,47 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
+import Loader from "../components/Loader";
 import PostElement from "../components/PostElement";
 import ProfileDetail from "../components/ProfileDetail";
 import { getMyDetails, getUserDetails } from "../redux/actions/usersAction";
+import {USER_DETAILS_RESET} from "../redux/types";
 
 const MyProfileScreen = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { userInfo, loading, error } = useSelector((state) => state.userLogin);
+  const {userInfo : user, loading, error} = useSelector((state) => state.userLogin);
+  const { user : userInfo, loading  : userLoading, error : userError } = useSelector((state) => state.userDetails);
+  
   useEffect(() => {
     if (!userInfo && !loading) {
       navigate("/auth");
     }
   }, [userInfo, loading]);
+
+
+  useEffect(() => {
+    if (!userInfo || !userInfo.username) {
+      dispatch(getUserDetails(user._id))
+    }
+  }, [dispatch, userInfo, user, userLoading]);
+
+
   return (
     <>
-      {loading ? (
-        "...LOADING"
+      {loading|| userLoading || !userInfo ? (
+     <Loader />
       ) : (
         <div className="d-flex flex-column">
           <div className="row">
             <div className="col-md-8 offset-md-2">
               <div className="row">
                 <div className="col-4 text-center mt-3">
-                  <img
-                    src={userInfo.profileImage}
-                    className="img-fluid"
-                    style={{
-                      width: "10rem",
-                      borderRadius: "50%",
-                      objectFit: "contain",
-                    }}
+                <img
+                    style={{ borderRadius: "50%", objectFit: "cover" }}
+                    src={userInfo?.profileImage}
+                    width="120rem"
+                    height="120rem"
                     alt=""
                   />
                 </div>
@@ -52,15 +62,15 @@ const MyProfileScreen = () => {
                   </div>
                   <div className="my-3 d-flex">
                     <p className="d-inline mx-2 d-flex flex-column text-center">
-                      <strong>{userInfo.posts.length}</strong>{" "}
+                      <strong>{userInfo?.posts?.length}</strong>{" "}
                       <small>posts</small>
                     </p>
                     <p className="d-inline mx-2  d-flex flex-column text-center">
-                      <strong>{userInfo.followers.length}</strong>{" "}
+                      <strong>{userInfo?.followers?.length}</strong>{" "}
                       <small>followers</small>
                     </p>
                     <p className="d-inline  mx-2  d-flex flex-column text-center">
-                      <strong>{userInfo.following.length}</strong>{" "}
+                      <strong>{userInfo?.following?.length}</strong>{" "}
                       <small>following</small>
                     </p>
                   </div>
@@ -79,7 +89,7 @@ const MyProfileScreen = () => {
             <div className="row">
               <div className="col-md-7 offset-md-2">
                 <div className="row">
-                  {userInfo.posts.map((post) => (
+                  {userInfo?.posts?.map((post) => (
                     <div className="col-md-4 my-2   profilepost ">
                       <PostElement
                         post={post}

@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import Loader from "../components/Loader";
 import PostElement from "../components/PostElement";
 import ProfileDetail from "../components/ProfileDetail";
 import {
@@ -27,9 +28,7 @@ const ProfileScreen = () => {
   } = useSelector((state) => state.userDetails);
 
   useEffect(() => {
-    if (user && !user.name) {
       dispatch(getUserDetails(id));
-    }
   }, [dispatch, followSuccess]);
   console.log(user);
 
@@ -44,7 +43,7 @@ const ProfileScreen = () => {
   return (
     <>
       {userLoading ? (
-        "...LOADING"
+      <Loader />
       ) : (
         <div className="  d-flex flex-column">
             <div className="row">
@@ -52,15 +51,12 @@ const ProfileScreen = () => {
                 <div className="row">
                   <div className="col-4 text-center mt-3">
                     <img
-                      src={user?.profileImage}
-                      className="img-fluid"
-                      style={{
-                        width: "10rem",
-                        borderRadius: "50%",
-                        objectFit: "cover",
-                      }}
-                      alt=""
-                    />
+                    style={{ borderRadius: "50%", objectFit: "cover" }}
+                    src={user?.profileImage}
+                    width="120rem"
+                    height="120rem"
+                    alt=""
+                  />
                   </div>
                   <div className="col-8 col-sm-8 mt-3 d-flex flex-column">
                     <div className="d-flex align-items-center">
@@ -117,7 +113,7 @@ const ProfileScreen = () => {
               <div className="col-md-7 offset-md-2">
                 <div className="row">
                   {userLoading ? (
-                    "...loading"
+                    <Loader />
                   ) : (
                     <>
                       {user?.posts?.map((post) => (

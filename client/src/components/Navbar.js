@@ -18,7 +18,8 @@ const Navbar = () => {
               src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/256px-Instagram_logo.svg.png"
             />
           </Link>
-          <button
+          <div className = "navbar-hide">
+            <button
             className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
@@ -105,6 +106,7 @@ const Navbar = () => {
                 </ul>
               </li>
             </ul>
+          </div>
           </div>
         </div>
       </nav>

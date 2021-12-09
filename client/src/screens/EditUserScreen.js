@@ -3,28 +3,42 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router";
-import { updateUser } from "../redux/actions/usersAction";
+import { getUserDetails, updateUser } from "../redux/actions/usersAction";
+import Loader from "../components/Loader";
+import {setAlert} from "../redux/actions/alertAction";
 
 const EditProfile = () => {
   const [uploading, setUploading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate()
-  const { userInfo: profile, loading } = useSelector(
+  const { userInfo, loading : userLoading } = useSelector(
     (state) => state.userLogin
   );
+  const { user: profile, loading } = useSelector(
+    (state) => state.userDetails
+  );
+  const { success} = useSelector(
+    (state) => state.userUpdate
+  );
+
   useEffect(() => {
-    if (!profile) {
+    dispatch(getUserDetails(userInfo._id))
+  },[userInfo, dispatch, success])
+  useEffect(() => {
+    if (!userInfo) {
       navigate("/auth");
     } else {
-      setFormData({
-        email: profile.email,
-        username: profile.username,
-        fullname: profile.fullname,
-        bio: profile.bio,
-        website: profile.website,
-        gender: profile.gender,
-        profileImage: profile.profileImage,
-      });
+      if (profile && profile.username) {
+        setFormData({
+          email: profile.email,
+          username: profile.username,
+          fullname: profile.fullname,
+          bio: profile.bio,
+          website: profile.website,
+          gender: profile.gender,
+          profileImage: profile.profileImage,
+        });
+     }
     }
   }, [profile, navigate, dispatch]);
   const [formData, setFormData] = useState({
@@ -44,6 +58,9 @@ const EditProfile = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updateUser(formData));
+    if (success) {
+      setAlert("Profile Updated", "success")
+    }
   };
   const handleUpload = async (e) => {
     const file = e.target.files[0];
@@ -66,7 +83,7 @@ const EditProfile = () => {
   };
 
   if (loading) {
-    return "...Loading";
+    return <Loader />;
   }
   return (
     <>

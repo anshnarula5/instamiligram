@@ -26,7 +26,7 @@ const loginController = asyncHandler(async (req, res) => {
     throw new Error("Invalid credentials");
   }
   const id = user._id;
-  const token = jwt.sign({ id }, "secret", { expiresIn: 360000 });
+  const token = jwt.sign({id}, "secret", {expiresIn: 360000});
   res.json({ ...user._doc, token });
 });
 
