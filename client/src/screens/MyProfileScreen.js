@@ -49,16 +49,14 @@ const MyProfileScreen = () => {
                 </div>
                 <div className="col-8 col-sm-8 mt-3 d-flex flex-column">
                   <div className="d-flex align-items-center">
-                    <h4 className="d-inline mx-2">{userInfo.username}</h4>
+                    <h4 className="d-inline">{userInfo.username}</h4>
                     <Link
-                      className="btn btn-outline-dark btn-sm mx-2"
+                      className="btn btn-outline-dark btn-sm mx-auto"
                       to="/profile/me/edit"
                     >
                       Edit profile
                     </Link>
-                    <p className="d-inline fs-5 mx-2">
-                      <i className="fas fa-cog"></i>
-                    </p>
+                   
                   </div>
                   <div className="my-3 d-flex">
                     <p className="d-inline mx-2 d-flex flex-column text-center">

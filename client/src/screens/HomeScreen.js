@@ -36,7 +36,7 @@ const HomeScreen = () => {
       dispatch(getFollowingPosts());
     dispatch(getUserDetails(user._id))
       dispatch(listNonFollowingUsers());
-  }, [dispatch, success, followSuccess]);
+  }, [dispatch, success, followSuccess, commentSuccess]);
 
 
    

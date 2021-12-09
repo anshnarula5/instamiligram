@@ -14,7 +14,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
       folder: "instagram",
-      allowedFormats : ["png", "jpg", "jpeg", "jfif"]
+      allowedFormats : ["png", "jpg", "jpeg", "jfif", "gif"]
   }
 })
 

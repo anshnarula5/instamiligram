@@ -58,33 +58,31 @@ const ProfileScreen = () => {
                     alt=""
                   />
                   </div>
-                  <div className="col-8 col-sm-8 mt-3 d-flex flex-column">
+                  <div className="col-7 col-sm-8 mt-3 d-flex flex-column">
                     <div className="d-flex align-items-center">
                       <h4 className="d-inline mx-2">{user.username}</h4>
                       {followLoading && "...Loading"}
                       {!isFollowing ? (
                         <button
-                          className="btn btn-primary px-2 mx-2"
+                          className="btn btn-primary "
                           onClick={handleFollow}
                         >
                           Follow
                         </button>
                       ) : (
                         <>
-                          <button className="btn btn-outline-dark btn-sm px-2 mx-2">
+                          <button className="btn btn-outline-dark btn-sm navbar-hide">
                             message
                           </button>
                           <button
-                            className="btn btn-outline-dark btn-sm px-2"
+                            className="btn btn-outline-dark btn-sm"
                             onClick={handleFollow}
                           >
                             <i className="fas fa-user-check"></i>
                           </button>
                         </>
                       )}
-                      <p className="d-inline fs-5 mx-3">
-                        <i className="fas fa-cog"></i>
-                      </p>
+                   
                     </div>
                     <div className="my-3 d-flex">
                       <p className="d-inline mx-2 d-flex flex-column text-center">

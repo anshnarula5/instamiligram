@@ -108,8 +108,7 @@ const Post = ({post}) => {
                         </section>
                         <div className="commentsection">
                           {post.text && <div className="py-2">
-                            <img style={{borderRadius: "50%", objectFit : "cover"}} src={post.user.profileImage} height = "30rem" width="30rem" alt="" />
-                            <strong className="mx-3">{post.user.username}</strong> {post.text}
+                      {post.text}
                           </div>}
                           {post.comments.map(comment =>
                             <div className="py-3 d-flex justify-content-between" key={comment._id}>
@@ -132,12 +131,10 @@ const Post = ({post}) => {
                       <div className="d-flex justify-content-between">
                         <p className="card-text fs-5 pb-1">
                           {!post.likes.find(like => like.user === user._id) ? <i
-                            className="far fa-heart"
-                            onClick={handleLike}
+                            className="far fa-heart disabled"
                             style={{ cursor: "pointer" }}
                           ></i> : <i
-                          className="fas fa-heart"
-                          onClick={handleLike}
+                          className="fas fa-heart disabled"
                           style={{ cursor: "pointer", color: "#fb3958" }}
                         ></i>}
                           <i className="far fa-comment mx-3" style={{ cursor: "pointer" }}></i>
@@ -159,6 +156,7 @@ const Post = ({post}) => {
                       <section className="border-top py-1">
                         <ul className="list-group list-group-flush d-flex flex-row align-items-center justify-content-between">
                           <input
+                          disabled
                             className="list-group-item w-100"
                             placeholder="Add comment"
                             name="comment"
@@ -252,11 +250,11 @@ const Post = ({post}) => {
           <div>
             <b>{post.user.username}</b>{" "}
             <small>
-              {/* {showText
-                // ? post.text
-                // : post?.text?.length > 50
-                // ? post.text.slice(0, 50)
-                              // : post.text
+              {showText
+                ? post.text
+                : post?.text?.length > 50
+                ? post.text.slice(0, 50)
+                              : post.text
                           }
               {!showText && post.text.length > 50 && (
                 <small
@@ -266,7 +264,7 @@ const Post = ({post}) => {
                 >
                   ...Read more
                 </small>
-              )} */}
+              )}
             </small>
           </div>
           <small className="text-muted">

@@ -9,11 +9,13 @@ import Explore from "./screens/Explore";
 import CreatePostScreen from "./screens/CreatePostScreen";
 import EditUserScreen from "./screens/EditUserScreen";
 import Footer from "./components/Footer";
+import {useSelector} from "react-redux";
 
 function App() {
+  const {userInfo} = useSelector(state => state.userLogin)
   return (
     <Router>
-      <Navbar />
+      {userInfo && <Navbar />}
       <Alert />
       <div className="app">
         <div className="container">
