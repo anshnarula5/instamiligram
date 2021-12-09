@@ -6,6 +6,7 @@ const cors = require("cors");
 
 const userRoutes = require("./routes/userRoutes")
 const postRoutes = require("./routes/postRoutes")
+const uploadRoute = require("./routes/uploadRoute")
 
 dotenv.config();
 const app = express();
@@ -24,7 +25,8 @@ app.use(express.json({ extended: true }));
 app.use(cors());
 
 app.use("/api/users", userRoutes )
-app.use("/api/posts", postRoutes )
+app.use("/api/posts", postRoutes)
+app.use("/api/upload", uploadRoute);
 
 app.use(notFound);
 

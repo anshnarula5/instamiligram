@@ -1,9 +1,11 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { createPost } from "../redux/actions/postActions";
 
 const CreatePostScreen = () => {
+  const [uploading, setUploading] = useState(false);
   const { userInfo } = useSelector((state) => state.userLogin);
   const { success, loading, error } = useSelector((state) => state.createPost);
   const dispatch = useDispatch();
@@ -16,13 +18,31 @@ const CreatePostScreen = () => {
   const [posted, setPosted] = useState(false);
   const { image, text, location } = formData;
   const handleChange = (e) => {
-
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-    const handleSubmit = () => {
-        console.log(formData)
+  const handleSubmit = () => {
+    console.log(formData);
     dispatch(createPost(formData));
     setPosted(true);
+  };
+  const handleUpload = async (e) => {
+    const file = e.target.files[0];
+    const fd = new FormData();
+    fd.append("image", file);
+    setUploading(true);
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      const res = await axios.post("/api/upload", fd, config);
+      setFormData({ ...formData, image: res.data });
+      setUploading(false);
+    } catch (e) {
+      console.log(e);
+      setUploading(false);
+    }
   };
   if (posted && !loading && success) {
     navigate("/");
@@ -35,7 +55,7 @@ const CreatePostScreen = () => {
       ) : error ? (
         error
       ) : (
-        <div className = "col-md-9 offset-md-1">
+        <div className="col-md-9 offset-md-1">
           <div className="card mt-5  offset-md-1">
             <div className="text-center mt-3">Create a post</div>
             <hr />
@@ -49,6 +69,7 @@ const CreatePostScreen = () => {
                           src={image}
                           className="img-fluid virtual"
                           alt="example "
+                          style = {{objectFit : "contain"}}
                         />
                       ) : (
                         <img
@@ -65,7 +86,12 @@ const CreatePostScreen = () => {
                       multiple={false}
                       onDone={({base64}) => setFormData({...formData, image : base64})}
                     /> */}
-                        <textarea rows={4} onChange = {handleChange} name = "image" value = {image}></textarea>
+                        <input
+                          type="file"
+                          name="image"
+                          onChange={handleUpload}
+                        />
+                        {uploading && "...Loadinf"}
                       </div>
                     </div>
                   </div>

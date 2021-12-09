@@ -11,6 +11,8 @@ const auth = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 
+
+
 const validatePost = [check("image", "Image is required").not().isEmpty()];
 
 const validateComment = [

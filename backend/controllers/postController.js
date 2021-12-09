@@ -4,6 +4,7 @@ const Post = require("../models/PostModel.js");
 
 const User = require("../models/UserModel");
 
+
 //Post route
 
 const createPost = expressAsyncHandler(async (req, res) => {
