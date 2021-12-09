@@ -96,24 +96,15 @@ const getALlUnfollowingProfiles = asyncHandler(async (req, res) => {
 // UPDATE MY PROFILE
 
 const updateUser = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id);
-
-  if (user) {
-    user.username = req.body.username || user.username;
-    user.fullname = req.body.fullname || user.fullname;
-    user.bio = req.body.bio || user.bio;
-    user.website = req.body.website || user.website;
-    user.username = req.body.username || user.username;
-    user.gender = req.body.gender || user.gender;
-    user.email = req.body.email || user.email;
-
-    const updatedUser = await user.save();
-
-    res.json(updatedUser);
-  } else {
-    res.status(404);
-    throw new Error("User not found");
-  }
+  const profileFields = { ...req.body };
+    const newProfile = await User.findByIdAndUpdate(
+      req.user.id,
+      { $set: profileFields },
+      { new: true, upsert: true, setDefaultsOnInsert: true }
+    )
+    const updated = await newProfile.save();
+    res.json(updated);
+    console.log(updated);
 });
 
 // GET USER BY ID

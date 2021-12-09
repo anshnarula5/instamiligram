@@ -110,7 +110,7 @@ import {
       case USER_UPDATE_PROFILE_FAIL:
         return { loading: false, error: payload };
       case USER_UPDATE_PROFILE_RESET:
-        return { };
+        return {};
       default:
         return state;
     }
@@ -129,4 +129,5 @@ export const followReducer = (state = {}, action) => {
     default:
       return state;
   }
-  }
+}
+  

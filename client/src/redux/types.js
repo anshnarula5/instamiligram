@@ -12,7 +12,6 @@ export const USER_DETAILS_SUCCESS = "USER_DETAILS_SUCCESS";
 export const USER_DETAILS_FAIL = "USER_DETAILS_FAIL";
 export const USER_DETAILS_RESET = "USER_DETAILS_RESET";
 
-
 export const USER_LIST_REQUEST = "USER_LIST_REQUEST"
 export const USER_LIST_SUCCESS = "USER_LIST_SUCCESS"
 export const USER_LIST_FAIL = "USER_LIST_FAIL"
@@ -51,3 +50,23 @@ export const COMMENT_FAIL = "COMMENT_FAIL"
 export const CREATE_POST_REQUEST=  "CREATE_POST_REQUEST"
 export const CREATE_POST_SUCCESS=  "CREATE_POST_SUCCESS"
 export const CREATE_POST_FAIL = "CREATE_POST_FAIL"
+
+export const ORDER_DETAILS_REQUEST = "ORDER_DETAILS_REQUEST"
+export const ORDER_DETAILS_SUCCESS = "ORDER_DETAILS_SUCCESS"
+export const ORDER_DETAILS_FAIL = "ORDER_DETAILS_FAIL"
+
+export const userDetailsReducer = (state = { user: {} }, action) => {
+    const { type, payload } = action;
+    switch (type) {
+      case USER_DETAILS_REQUEST:
+        return { ...state, loading: true };
+      case USER_DETAILS_SUCCESS:
+        return { loading: false, user: payload };
+      case USER_DETAILS_FAIL:
+        return { loading: false, error: payload };
+      case USER_DETAILS_RESET:
+        return { user: {} };
+      default:
+        return state;
+    }
+  };

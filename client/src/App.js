@@ -7,6 +7,7 @@ import MyProfileScreen from "./screens/MyProfileScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import Explore from "./screens/Explore";
 import CreatePostScreen from "./screens/CreatePostScreen";
+import EditUserScreen from "./screens/EditUserScreen";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/" element={<HomeScreen />} />
             <Route path="/auth" element={<AuthScreen />} />
             <Route path="/profile/me" element={<MyProfileScreen />} />
+            <Route path="/profile/me/edit" element={<EditUserScreen />} />
             <Route path="/profile/:id" element={<ProfileScreen />} />
             <Route path="/explore" element={<Explore />} />
             <Route path="/create" element={<CreatePostScreen />} />

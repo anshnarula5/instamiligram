@@ -11,7 +11,7 @@ const MyProfileScreen = () => {
   const navigate = useNavigate()
   const {userInfo, loading, error} = useSelector((state) => state.userLogin);
   useEffect(() => {
-    if (!userInfo) {
+    if (!userInfo && !loading) {
       navigate("/auth")
     }
   }, [userInfo,loading])
@@ -31,7 +31,7 @@ const MyProfileScreen = () => {
                   style={{
                     width: "10rem",
                     borderRadius: "50%",
-                    objectFit: "cover",
+                    objectFit: "contain",
                   }}
                   alt=""
                 />
@@ -41,7 +41,7 @@ const MyProfileScreen = () => {
                   <h4 className="d-inline mx-2">{userInfo.username}</h4>
                   <Link
                     className="btn btn-outline-dark btn-sm mx-2"
-                    to="/profile/edit"
+                    to="/profile/me/edit"
                   >
                     Edit profile
                   </Link>
