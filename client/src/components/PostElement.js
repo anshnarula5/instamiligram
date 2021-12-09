@@ -5,7 +5,7 @@ import moment from "moment";
 import {commentPost, likePost} from "../redux/actions/postActions";
 
 
-const PostElement = ({ post, profile, explore = true, myProfile = false }) => {
+const PostElement = ({post, profile, explore = true, myProfile = false}) => {
   const [text, setText] = useState("");
   const { userInfo: user } = useSelector((state) => state.userLogin);
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const PostElement = ({ post, profile, explore = true, myProfile = false }) => {
   if (!post) return "...loading";
   return (
     <>
-      <div
+      {post.user && <><div
         className="modal fade"
         id={`body${post._id}`}
         tabindex="-1"
@@ -66,7 +66,7 @@ const PostElement = ({ post, profile, explore = true, myProfile = false }) => {
                                 src={
                                   explore
                                     ? post.user.profileImage
-                                    : profile.user.profileImage
+                                    : profile.profileImage
                                 }
                                 width="30rem"
                                 height="30rem"
@@ -78,7 +78,7 @@ const PostElement = ({ post, profile, explore = true, myProfile = false }) => {
                               >
                                 {explore
                                   ? post.user.username
-                                  : profile.user.username}
+                                  : profile.username}
                               </h6>
                             </>
                           ) : (
@@ -100,7 +100,7 @@ const PostElement = ({ post, profile, explore = true, myProfile = false }) => {
                                   src={
                                     explore
                                       ? post.user.profileImage
-                                      : profile.user.profileImage
+                                      : profile.profileImage
                                   }
                                   width="30rem"
                                   height="30rem"
@@ -124,7 +124,7 @@ const PostElement = ({ post, profile, explore = true, myProfile = false }) => {
                                 >
                                   {explore
                                     ? post.user.username
-                                    : profile.user.username}
+                                    : profile.username}
                                 </h6>
                               </Link>
                             </>
@@ -315,7 +315,7 @@ const PostElement = ({ post, profile, explore = true, myProfile = false }) => {
             </div>
           </div>
         </div>
-      </div>
+      </div></>}
     </>
   );
 };

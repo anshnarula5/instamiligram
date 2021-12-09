@@ -15,7 +15,7 @@ const loginController = asyncHandler(async (req, res) => {
     });
   }
   const { email, password } = req.body;
-  const user = await User.findOne({ email });
+  const user = await User.findOne({ email }).populate("posts");
   if (!user) {
     res.status(404);
     throw new Error("No user found");
@@ -110,7 +110,7 @@ const updateUser = asyncHandler(async (req, res) => {
 // GET USER BY ID
 
 const getUserById = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id).select("-password");
+  const user = await User.findById(req.params.id).select("-password").populate("posts");
   if (user) {
     res.json(user);
   } else {

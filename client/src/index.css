@@ -7,10 +7,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.footer {
+  display: none;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
 .app {
   background-color: #fafafa;
   min-height: 100vh;
@@ -48,6 +53,7 @@ small {
   margin: 0;
   padding: 0;
 }
+
 .modal hr {
   margin: 0;
   padding: 0;
@@ -61,24 +67,27 @@ small {
 .postImage {
   border-radius: 0%;
 }
+
 .alert {
   z-index: 100;
   position: relative;
 }
-.commentsection{
-      max-height: 23rem;
-      overflow-y: scroll;
+
+.commentsection {
+  max-height: 23rem;
+  overflow-y: scroll;
 }
+
 ::-webkit-scrollbar {
   display: none;
 }
 
-.profilepost{
+.profilepost {
   position: relative;
 }
 
 
-.profilepost img{
+.profilepost img {
   opacity: 1;
   transition: .15s ease;
   backface-visibility: hidden;
@@ -115,6 +124,7 @@ small {
   flex: 0 0 auto;
   flex-flow: column nowrap;
 }
+
 .loader:after,
 .loader:before {
   height: 60px;
@@ -128,6 +138,7 @@ small {
   position: absolute;
   top: 0;
 }
+
 .loader:after {
   -webkit-animation: rotate 2s infinite ease;
   animation: rotate 2s infinite ease;
@@ -135,9 +146,11 @@ small {
   -webkit-transform-origin: 50%;
   transform-origin: 50%;
 }
+
 .loader:before {
   border-color: #c7c7c7;
 }
+
 .loader a {
   display: block;
   font-size: 14px;
@@ -151,26 +164,31 @@ small {
   text-decoration: none;
   font: normal normal 600 normal 14px / 14px proxima-nova, "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
+
 @-webkit-keyframes rotate {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   to {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
+
 @keyframes rotate {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
+
   to {
     -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
+
 .note {
   color: #c7c7c7;
   text-decoration: none;
@@ -179,7 +197,18 @@ small {
   width: 100%;
 }
 
-a{
+a {
   text-decoration: none;
   color: black;
+}
+
+.footer{
+  display: none;
+}
+
+@media screen and (max-width : 768px) {
+
+  .footer {
+    display: block;
+  }
 }

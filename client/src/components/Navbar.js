@@ -1,10 +1,10 @@
 import React from "react";
-import {useDispatch} from "react-redux";
-import {Link} from "react-router-dom";
-import {logout} from "../redux/actions/usersAction";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { logout } from "../redux/actions/usersAction";
 
 const Navbar = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -12,9 +12,10 @@ const Navbar = () => {
         <div className="container w-50">
           <Link className="navbar-brand " to="/">
             <img
-              src={"d"}
-              alt="..."
-              height="36"
+              className="img-fluid"
+              width= "140rem"
+              alt="Instagram logo"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Instagram_logo.svg/256px-Instagram_logo.svg.png"
             />
           </Link>
           <button
@@ -32,32 +33,43 @@ const Navbar = () => {
             <ul className="navbar-nav ms-auto">
               <li className="nav-item fs-4 mx-1">
                 <Link className="nav-link active" aria-current="page" to="/">
-                <i className="fas fa-home"></i>
+                  <i className="fas fa-home"></i>
                 </Link>
               </li>
               <li className="nav-item fs-4 mx-1">
-                <Link className="nav-link active" aria-current="page" to="/auth">
-                <i className="far fa-comment-dots"></i>
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/auth"
+                >
+                  <i className="far fa-comment-dots"></i>
                 </Link>
               </li>
               <li className="nav-item fs-4 mx-1">
-                <Link className="nav-link active" aria-current="page" to="/create">
-                <i className="far fa-plus-square"></i>
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/create"
+                >
+                  <i className="far fa-plus-square"></i>
                 </Link>
               </li>
               <li className="nav-item fs-4 mx-1">
-                <Link className="nav-link active" aria-current="page" to="/explore">
-                <i className="far fa-compass"></i>
+                <Link
+                  className="nav-link active"
+                  aria-current="page"
+                  to="/explore"
+                >
+                  <i className="far fa-compass"></i>
                 </Link>
               </li>
               <li className="nav-item fs-4 mx-1">
                 <Link className="nav-link active" aria-current="page" to="/">
-                <i className="far fa-heart"></i>
+                  <i className="far fa-heart"></i>
                 </Link>
               </li>
-              
-                 
-              <li className="nav-item dropdown fs-4 mx-1" >
+
+              <li className="nav-item dropdown fs-4 mx-1">
                 <a
                   className="nav-link dropdown-toggle"
                   href="#"
@@ -77,14 +89,16 @@ const Navbar = () => {
                       profile
                     </Link>
                   </li>
-                  <li>
-                    
-                  </li>
+                  <li></li>
                   <li>
                     <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <p className="dropdown-item" onClick = {() => dispatch(logout())} style = {{cursor : "pointer"}}>
+                    <p
+                      className="dropdown-item"
+                      onClick={() => dispatch(logout())}
+                      style={{ cursor: "pointer" }}
+                    >
                       Logout
                     </p>
                   </li>

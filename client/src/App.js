@@ -8,6 +8,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import Explore from "./screens/Explore";
 import CreatePostScreen from "./screens/CreatePostScreen";
 import EditUserScreen from "./screens/EditUserScreen";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/explore" element={<Explore />} />
             <Route path="/create" element={<CreatePostScreen />} />
           </Routes>
+          <Footer />
         </div>
       </div>
     </Router>
