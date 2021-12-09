@@ -2,6 +2,9 @@ import {
   COMMENT_FAIL,
   COMMENT_REQUEST,
   COMMENT_SUCCESS,
+  CREATE_POST_FAIL,
+  CREATE_POST_REQUEST,
+  CREATE_POST_SUCCESS,
   GET_ALL_POSTS_FAIL,
   GET_ALL_POSTS_REQUEST,
   GET_ALL_POSTS_SUCCESS,
@@ -103,6 +106,31 @@ export const commentPost = (id, text) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: COMMENT_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const createPost = (post) => async (dispatch, getState) => {
+  try {
+    dispatch({type: CREATE_POST_REQUEST});
+    const {
+      userLogin: { userInfo },
+    } = getState();
+    const config = {
+      headers: {
+        "Content-type" : "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+    const res = await axios.post(`/api/posts`, post, config);
+    dispatch({ type: CREATE_POST_SUCCESS, payload : res.data });
+  } catch (error) {
+    dispatch({
+      type: CREATE_POST_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

@@ -2,6 +2,9 @@ import {
   COMMENT_FAIL,
   COMMENT_REQUEST,
   COMMENT_SUCCESS,
+  CREATE_POST_FAIL,
+  CREATE_POST_REQUEST,
+  CREATE_POST_SUCCESS,
   GET_ALL_POSTS_FAIL,
   GET_ALL_POSTS_REQUEST,
   GET_ALL_POSTS_SUCCESS,
@@ -63,6 +66,20 @@ export const commentPostReducer = (state = {}, action) => {
     case COMMENT_SUCCESS:
       return { loading: false, success: true };
     case COMMENT_FAIL:
+      return { loading: false, error: payload };
+    default:
+      return state;
+  }
+};
+
+export const createPostReducer = (state = {}, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case CREATE_POST_REQUEST:
+      return { loading: true };
+    case CREATE_POST_SUCCESS:
+      return { loading: false, success: true, post : payload };
+    case CREATE_POST_FAIL:
       return { loading: false, error: payload };
     default:
       return state;

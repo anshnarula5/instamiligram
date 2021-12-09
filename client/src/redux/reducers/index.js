@@ -3,6 +3,7 @@ import alert from "./alerts";
 import {
   allPostsReducer,
   commentPostReducer,
+  createPostReducer,
   followingPostsReducer,
   likePostReducer,
 } from "./postReducer";
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
   likePost: likePostReducer,
   commentPost: commentPostReducer,
   allPosts: allPostsReducer,
-  notFollowingUsersList : notFollowingUsersListReducer
+  notFollowingUsersList: notFollowingUsersListReducer,
+  createPost: createPostReducer
 });
 
 export default rootReducer;

@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router";
 import Post from "../components/Post";
 import { getFollowingPosts } from "../redux/actions/postActions";
 import {
@@ -12,6 +13,7 @@ import {
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const { posts, loading, error } = useSelector(
     (state) => state.followingPosts
   );
@@ -24,16 +26,24 @@ const HomeScreen = () => {
     loading: usersLoading,
     error: usersError,
   } = useSelector((state) => state.notFollowingUsersList);
+ 
 
   useEffect(() => {
-    dispatch(getFollowingPosts());
-  }, [dispatch, success, commentSuccess, followSuccess]);
+    if (userInfo && userInfo.username) {
+      dispatch(getFollowingPosts());
+    }
+  }, [dispatch, success, commentSuccess, followSuccess, userInfo]);
 
   useEffect(() => {
-    if (users && users.length === 0) {
+    if (users && users.length === 0 && userInfo && userInfo.username) {
       dispatch(listNonFollowingUsers());
     }
-  }, [dispatch, users, followSuccess, usersLoading, userInfo]);
+  }, [dispatch, followSuccess, userInfo]);
+
+   
+  if (!userInfo || !userInfo.username) {
+    return <Navigate to = "/auth"/>
+  }
 
   return loading ? (
     "...Loading"

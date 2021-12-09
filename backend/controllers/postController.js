@@ -15,9 +15,9 @@ const createPost = expressAsyncHandler(async (req, res) => {
   const user = await User.findById(req.user.id).populate("posts");
   user.posts.unshift(post);
   post.user = req.user.id;
-  await post.save();
+  const createdPost = await post.save();
   await user.save();
-  res.json(post);
+  res.json(createdPost);
 });
 
 //Get all posts
@@ -31,7 +31,7 @@ const getAllPosts = expressAsyncHandler(async (req, res) => {
 //Get all posts by following
 
 const getAllPostsByFollowing = expressAsyncHandler(async (req, res) => {
-  let posts = await Post.find().populate("user");
+  let posts = await Post.find().populate("user").sort({date : -1});
   const user = await User.findById(req.user.id);
   const following = user.following;
   const filteredPosts = [];

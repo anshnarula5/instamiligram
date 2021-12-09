@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import MyProfileScreen from "./screens/MyProfileScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import Explore from "./screens/Explore";
+import CreatePostScreen from "./screens/CreatePostScreen";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/profile/me" element={<MyProfileScreen />} />
             <Route path="/profile/:id" element={<ProfileScreen />} />
             <Route path="/explore" element={<Explore />} />
+            <Route path="/create" element={<CreatePostScreen />} />
           </Routes>
         </div>
       </div>
