@@ -69,11 +69,28 @@ const getMyProfileController = asyncHandler(async (req, res) => {
 
 const getAllProfilesController = asyncHandler(async (req, res) => {
   try {
-    const users = await User.find({}).select("-password").populate("posts").populate("followers").populate("following");
+    const users = await User.find({})
+      .select("-password")
+      .populate("posts")
+      .populate("followers")
+      .populate("following");
     res.json(users);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+});
+
+// GET ALL UNFOLLOWING PROFILES
+
+const getALlUnfollowingProfiles = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user.id);
+  const following = user.following;
+  const users = await User.find({ _id: { $nin: following, $ne: req.user.id } })
+    .select("profileImage")
+    .select("username")
+    .select("fullname")
+    .select("followers");
+  res.json(users);
 });
 
 // UPDATE MY PROFILE
@@ -136,7 +153,7 @@ const follow = asyncHandler(async (req, res) => {
     await myProfile.save();
     await userProfile.save();
   }
-  
+
   res.json(userProfile.followers);
 });
 
@@ -145,6 +162,7 @@ module.exports = {
   registerController,
   getMyProfileController,
   getAllProfilesController,
+  getALlUnfollowingProfiles,
   updateUser,
   getUserById,
   follow,

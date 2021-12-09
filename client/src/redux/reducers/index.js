@@ -11,6 +11,7 @@ import {
   userLoginReducer,
   userRegisterReducer,
   followReducer,
+  notFollowingUsersListReducer,
 } from "./usersReducer";
 
 const rootReducer = combineReducers({
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   followingPosts: followingPostsReducer,
   likePost: likePostReducer,
   commentPost: commentPostReducer,
-  allPosts : allPostsReducer
+  allPosts: allPostsReducer,
+  notFollowingUsersList : notFollowingUsersListReducer
 });
 
 export default rootReducer;

@@ -21,6 +21,9 @@ import {
     FOLLOW_REQUEST,
     FOLLOW_SUCCESS,
     FOLLOW_FAIL,
+    NF_USER_LIST_REQUEST,
+    NF_USER_LIST_SUCCESS,
+    NF_USER_LIST_FAIL,
   } from "../types";
   
   export const userLoginReducer = (state = {}, action) => {
@@ -79,6 +82,19 @@ import {
         return { loading: false, error: payload };
       case USER_LIST_RESET:
         return { users: [] };
+      default:
+        return state;
+    }
+  };
+  export const notFollowingUsersListReducer = (state = { users: [] }, action) => {
+    const { type, payload } = action;
+    switch (type) {
+      case NF_USER_LIST_REQUEST:
+        return { loading: true };
+      case NF_USER_LIST_SUCCESS:
+        return { loading: false, users: payload };
+      case NF_USER_LIST_FAIL:
+        return { loading: false, error: payload };
       default:
         return state;
     }

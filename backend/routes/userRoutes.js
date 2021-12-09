@@ -8,7 +8,8 @@ const {
   getAllProfilesController,
   updateUser,
   getUserById,
-  follow
+  follow,
+  getALlUnfollowingProfiles
 } = require("../controllers/userController");
 
 const router = express.Router();
@@ -46,6 +47,7 @@ router.post("/", registerValidator, registerController);
 router.put("/", auth, validateProfile, updateUser);
 router.get("/me/profile", auth, getMyProfileController);
 router.get("/", auth, getAllProfilesController);
+router.get("/unfollowing", auth, getALlUnfollowingProfiles);
 router.post("/login", loginValidator, loginController);
 router.get("/:id", auth, getUserById);
 router.put("/:id/follow", auth, follow);

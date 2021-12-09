@@ -28,6 +28,9 @@ import {
     FOLLOW_REQUEST,
     FOLLOW_SUCCESS,
     FOLLOW_FAIL,
+    NF_USER_LIST_FAIL,
+    NF_USER_LIST_SUCCESS,
+    NF_USER_LIST_REQUEST,
   } from "../types";
   import axios from "axios";
   
@@ -108,6 +111,29 @@ import {
     } catch (error) {
       dispatch({
         type: USER_LIST_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  }
+  export const listNonFollowingUsers = () => async (dispatch, getState) => {
+    try {
+      dispatch({type: NF_USER_LIST_REQUEST});
+      const {
+        userLogin: {userInfo},
+      } = getState();
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo.token}`,
+        },
+      };
+      const res = await axios.get(`/api/users/unfollowing`, config);
+      dispatch({type: NF_USER_LIST_SUCCESS, payload: res.data});
+    } catch (error) {
+      dispatch({
+        type: NF_USER_LIST_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message
