@@ -130,7 +130,7 @@ const EditProfile = () => {
                       height="60rem"
                       alt=""
                     />
-                    {uploading && "...Loadinf"}
+                    {uploading && "...Uploading"}
                   </label>
                   <div className="col-sm-10">
                     <p className="fs-5">{username}</p>
@@ -292,7 +292,7 @@ const EditProfile = () => {
                       Submit
                     </button>
                     <Link
-                      to="/profile/me"
+                      to="/profile"
                       className="btn btn-outline-primary mx-3"
                     >
                       Go back

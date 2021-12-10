@@ -111,7 +111,7 @@ const PostElement = ({post, profile, explore = true, myProfile = false}) => {
                               <Link
                                 to={
                                   post.user._id === user._id
-                                    ? "/profile/me"
+                                    ? "/profile"
                                     : `/profile/${post.user._id}`
                                 }
                                 style={{

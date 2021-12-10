@@ -12,17 +12,17 @@ import Footer from "./components/Footer";
 import {useSelector} from "react-redux";
 
 function App() {
-  const {userInfo} = useSelector(state => state.userLogin)
+  const {userInfo, loading} = useSelector(state => state.userLogin)
   return (
     <Router>
-      {userInfo && <Navbar />}
+      {userInfo && !loading && <Navbar />}
       <Alert />
       <div className="app">
         <div className="container">
           <Routes>
             <Route path="/" element={<HomeScreen />} />
             <Route path="/auth" element={<AuthScreen />} />
-            <Route path="/profile/me" element={<MyProfileScreen />} />
+            <Route path="/profile" element={<MyProfileScreen />} />
             <Route path="/profile/me/edit" element={<EditUserScreen />} />
             <Route path="/profile/:id" element={<ProfileScreen />} />
             <Route path="/explore" element={<Explore />} />

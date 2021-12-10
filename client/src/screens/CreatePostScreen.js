@@ -57,7 +57,7 @@ const CreatePostScreen = () => {
         error
       ) : (
         <div className="col-md-9 offset-md-1">
-          <div className="card mt-5  offset-md-1">
+          <div className="card mt-3  offset-md-1">
             <div className="text-center mt-3">Create a post</div>
             <hr />
             <div className="row no-gutters ">
@@ -92,7 +92,7 @@ const CreatePostScreen = () => {
                           name="image"
                           onChange={handleUpload}
                         />
-                        {uploading && "...Loadinf"}
+                        {uploading && "...Uploading"}
                       </div>
                     </div>
                   </div>

@@ -16,7 +16,6 @@ import Profiles from "./Profiles";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
   const { posts, loading, error } = useSelector(
     (state) => state.followingPosts
   );
@@ -33,14 +32,17 @@ const HomeScreen = () => {
  
 
   useEffect(() => {
-      dispatch(getFollowingPosts());
-    dispatch(getUserDetails(user._id))
+    if (user) {
+      dispatch(getUserDetails(user._id))
       dispatch(listNonFollowingUsers());
-  }, [dispatch, success, followSuccess, commentSuccess]);
+      dispatch(getFollowingPosts());
+      }
+      
+  }, [dispatch, success, followSuccess, commentSuccess, user]);
 
 
    
-  if (!user || !user.username) {
+  if (!user) {
     return <Navigate to = "/auth"/>
   }
 
@@ -60,7 +62,7 @@ const HomeScreen = () => {
             <Post post={post} />
           ))}
         </div>
-        <div className="col-md-3 mt-4 " style={{ zIndex: "0" }}>
+        <div className="col-md-3 mt-4  right " style={{ zIndex: "0" }}>
           <div className="sticky-top px-3" style={{ top: "2rem" }}>
             <section className="d-flex align-items-center justify-content-center">
               <img
@@ -71,7 +73,7 @@ const HomeScreen = () => {
                 alt=""
               />
               <h6 className=" d-inline mx-2 flex-grow-1">
-                <Link to={`/profile/me`}>{userInfo.username}</Link>
+                <Link to={`/profile`}>{userInfo.username}</Link>
               </h6>
               <p
                 style={{ cursor: "pointer" }}
@@ -82,7 +84,7 @@ const HomeScreen = () => {
             </section>
             <section className="mt-4">
               <small className="text-muted mb-2">Suggestions for you</small>
-              <section>
+              <section >
                 {usersLoading
                   ? <Loader />
                   : users.map((user) => (

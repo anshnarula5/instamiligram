@@ -104,7 +104,7 @@ const Post = ({post}) => {
                           <img style = {{borderRadius : "50%", objectFit : "cover"}} src={post.user.profileImage} width = "30rem" height = "30rem" alt="" />
                           <h6 className = "mx-3 d-inline">{post.user.username}</h6>
                           </section>
-                          <p className = "fs-5 px-2"><i className="fas fa-ellipsis-h"></i></p>
+                          <p className = "fs-5 px-2"  data-bs-dismiss="modal"><i class="fas fa-times"></i></p>
                         </section>
                         <div className="commentsection">
                           {post.text && <div className="py-2">
@@ -186,7 +186,7 @@ const Post = ({post}) => {
             <Link
               to={
                 post.user._id === user._id
-                  ? "/profile/me"
+                  ? "/profile"
                   : `/profile/${post.user._id}`
               }
               className="mx-1"

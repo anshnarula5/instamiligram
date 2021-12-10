@@ -207,6 +207,9 @@ a {
 }
 
 @media screen and (max-width : 768px) {
+  .right{
+    display: none;
+  }
   .navbar-hide{
     display: none;
   }
