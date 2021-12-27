@@ -60,7 +60,7 @@ const ProfileScreen = () => {
                   </div>
                   <div className="col-7 col-sm-8 mt-3 d-flex flex-column">
                     <div className="d-flex align-items-center">
-                      <h4 className="d-inline mx-2">{user.username}</h4>
+                      <h4 className="d-inline mx-2">{user?.username}</h4>
                       {followLoading && "...Loading"}
                       {!isFollowing ? (
                         <button

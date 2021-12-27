@@ -11,10 +11,14 @@ import {commentPost, likePost} from "../redux/actions/postActions";
 const Post = ({post}) => {
   const [showText, setShowText] = useState(false);
   const [text, setText] = useState("");
-  const {userInfo : user, loading, error} = useSelector((state) => state.userLogin);
+  const {userInfo: user, loading, error} = useSelector((state) => state.userLogin);
+  const [like, setLike] = useState(post.likes.find(like => like.user === user._id))
   const dispatch = useDispatch();
+
+
   const handleLike = () => {
     dispatch(likePost(post._id));
+    setLike(prev => !prev)
   };
   const handleDelete = () => {
     // dispatch(deletePost(post._id));
@@ -92,7 +96,7 @@ const Post = ({post}) => {
                     <div className="col-md-8"  >
                       <img
                         src={post.image}
-                        className="card-img img-fluid"
+                        className="card-img img-fluid modal-image"
                         alt="..."
                         style={{ height: "35rem", overflow: "hidden", display: "block", objectFit : "cover" , borderRadius: "0%"  }}
                       />
@@ -130,11 +134,11 @@ const Post = ({post}) => {
                       <section>
                       <div className="d-flex justify-content-between">
                         <p className="card-text fs-5 pb-1">
-                          {!post.likes.find(like => like.user === user._id) ? <i
-                            className="far fa-heart disabled"
+                          {!like ? <i
+                            className="far fa-heart "
                             style={{ cursor: "pointer" }}
                           ></i> : <i
-                          className="fas fa-heart disabled"
+                          className="fas fa-heart "
                           style={{ cursor: "pointer", color: "#fb3958" }}
                         ></i>}
                           <i className="far fa-comment mx-3" style={{ cursor: "pointer" }}></i>
@@ -228,7 +232,7 @@ const Post = ({post}) => {
         <div className="card-body">
           <div className="d-flex justify-content-between">
             <p className="card-text fs-5">
-                {!post.likes.find(like => like.user === user._id) ? <i
+                {!like ? <i
                   className="far fa-heart"
                   onClick={handleLike}
                   style={{ cursor: "pointer" }}

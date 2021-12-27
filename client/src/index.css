@@ -202,19 +202,31 @@ a {
   color: black;
 }
 
-.footer{
+.footer {
   display: none;
 }
 
+.image123 {
+  height: "35rem";
+  overflow: "hidden";
+  display: "none";
+  object-fit: "contain";
+  border-radius: "0%"
+}
+
 @media screen and (max-width : 768px) {
-  .right{
+
+
+  .right {
     display: none;
   }
-  .navbar-hide{
+
+  .navbar-hide {
     display: none;
   }
+
   .footer {
-    border-top: .5px solid gray ;
+    border-top: .5px solid gray;
     display: block;
   }
 }

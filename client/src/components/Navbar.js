@@ -86,7 +86,7 @@ const Navbar = () => {
                   aria-labelledby="navbarDropdown"
                 >
                   <li>
-                    <Link className="dropdown-item" to="/profile/me">
+                    <Link className="dropdown-item" to="/profile">
                       profile
                     </Link>
                   </li>

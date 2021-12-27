@@ -38,7 +38,7 @@ const HomeScreen = () => {
       dispatch(getFollowingPosts());
       }
       
-  }, [dispatch, success, followSuccess, commentSuccess, user]);
+  }, [dispatch,  followSuccess, commentSuccess, user]);
 
 
    

@@ -41,7 +41,7 @@ export const login =
       dispatch({ type: USER_LOGIN_REQUEST });
       const res = await axios.post("/api/users/login", { email, password });
       dispatch({ type: USER_LOGIN_SUCCESS, payload: res.data });
-      localStorage.setItem("userInfo", JSON.stringify(res.data));
+      localStorage.setItem("user", JSON.stringify(res.data));
     } catch (error) {
       dispatch({
         type: USER_LOGIN_FAIL,
@@ -66,7 +66,7 @@ export const register =
       dispatch({ type: USER_REGISTER_SUCCESS, payload: res.data });
       dispatch({ type: USER_LOGIN_SUCCESS, payload: res.data });
 
-      localStorage.setItem("userInfo", JSON.stringify(res.data));
+      localStorage.setItem("user", JSON.stringify(res.data));
     } catch (error) {
       dispatch({
         type: USER_REGISTER_FAIL,
@@ -175,7 +175,7 @@ export const updateUser = (user) => async (dispatch, getState) => {
 };
 
 export const logout = () => async (dispatch) => {
-  localStorage.removeItem("userInfo");
+  localStorage.removeItem("user");
   dispatch({ type: USER_LOGOUT });
   dispatch({ type: USER_DETAILS_RESET });
 };
