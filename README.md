@@ -16,9 +16,6 @@ Add a new post, add comments, explore!
 
 ![color picker](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbHNjMHltenM2NWltbnd2MGR6ZzViaHE3YnM1Z2hydmF6dTcwdmd1eSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/e6tQ4a2Ov5kMDSYzbd/giphy.gif)
 
-## Screenshots
-
-![Alt text](<Screenshot 2023-10-25 200215.png>) ![Alt text](<Screenshot 2023-10-25 195756.png>) ![Alt text](<Screenshot 2023-10-25 200016.png>) ![Alt text](<Screenshot 2023-10-25 200116.png>)
 
 ## Installation
 
