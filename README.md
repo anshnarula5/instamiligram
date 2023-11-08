@@ -1,5 +1,5 @@
 
-# Project Title
+# Instamiligram
 
 An application where users can add posts, like other's post, follow other users and all other features same as instagram.
 
